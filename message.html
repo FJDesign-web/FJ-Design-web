@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <title>Message FJ Design</title>
+    
+    
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #6a0dad, #ff69b4, #87ceeb);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            width: 400px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .container h2 {
+            text-align: center;
+            color: white;
+        }
+
+        .message-area {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .message-box {
+            background-color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 10px;
+            color: black;
+            width: 75%;
+            height: 40px;
+            resize: none;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .icon-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .icon-button img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .submit-btn {
+            background-color: #6a0dad;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background-color: #ff69b4;
+        }
+
+        .messages {
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 10px;
+            padding: 15px;
+            color: #333;
+            height: 200px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 10px;
+        }
+
+        .message p {
+            margin: 0;
+        }
+
+        .message .sender {
+            font-weight: bold;
+        }
+
+        .image-preview {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+    
+    
+   </style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<div class="icon-container">
+    <a href="index.html"><i class="fas fa-home"></i></a>
+    <a href="portfolio.html"><i class="fas fa-user"></i></a>
+    <a href="work.html"><i class="fas fa-briefcase"></i></a>
+    <a href="about.html"><i class="fas fa-envelope"></i></a>
+</div>
+
+</head>
+<body>
+
+    <div class="container">
+        <h2>Message FJ Design</h2>
+
+        <div class="messages" id="messages"></div>
+
+        <div class="message-area">
+            <textarea id="messageInput" class="message-box" placeholder="Type your message..."></textarea>
+            <!-- Icon for image upload -->
+            <button class="icon-button" onclick="document.getElementById('imageInput').click()">
+                <img src="https://cdn-icons-png.flaticon.com/512/747/747376.png" alt="Send Photo"> <!-- Proper camera icon -->
+            </button>
+            <input type="file" id="imageInput" accept="image/*" style="display: none;">
+            <img id="imagePreview" class="image-preview" style="display: none;" />
+        </div>
+
+        <button class="submit-btn" onclick="sendMessage()">Send Message</button>
+    </div>
+
+    <!-- Include Socket.io script -->
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script>
+        const socket = io('http://localhost:3000'); // Connect to the server
+        const messagesContainer = document.getElementById('messages');
+        const imageInput = document.getElementById('imageInput');
+        const imagePreview = document.getElementById('imagePreview');
+
+        // Show image preview when user selects a file
+        imageInput.addEventListener('change', function () {
+            const file = imageInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Function to send a message
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const message = messageInput.value.trim();
+
+            if (message || imageInput.files.length > 0) {
+                const file = imageInput.files[0];
+                const data = { sender: 'User', message };
+
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        data.image = e.target.result; // Send image as base64 data
+                        socket.emit('userMessage', data); // Send the message to the server
+                        imageInput.value = ''; // Clear image input
+                        imagePreview.style.display = 'none'; // Hide image preview
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    socket.emit('userMessage', data); // Send the message to the server without image
+                }
+
+                addMessageToChat('User', message, imagePreview.src); // Display the message in the chat box
+                messageInput.value = ''; // Clear input field
+            }
+        }
+
+        // Function to add message to the chat box
+        function addMessageToChat(sender, message, image = null) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+            messageElement.innerHTML = `
+                <p class="sender">${sender}:</p>
+                <p>${message}</p>
+            `;
+
+            if (image) {
+                const imgElement = document.createElement('img');
+                imgElement.src = image;
+                imgElement.classList.add('image-preview');
+                messageElement.appendChild(imgElement); // Append image to the message if available
+            }
+
+            messagesContainer.appendChild(messageElement);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight; // Scroll to bottom
+        }
+
+        // Listen for messages from the server
+        socket.on('newMessage', (data) => {
+            addMessageToChat(data.sender, data.message, data.image);
+        });
+    </script>
+
+</body>
+</html>
