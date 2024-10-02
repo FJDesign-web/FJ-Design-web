@@ -1,0 +1,356 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.menu {
+    position: relative;
+}
+
+.menu-icon {
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.menu-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+.menu-content a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.background {
+    background: url('your_background_image.jpg') no-repeat center center fixed;
+    background-size: cover;
+    opacity: 0.8;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.button {
+    padding: 15px 25px;
+    background-color: #ff4081;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #e91e63;
+}
+
+.portfolio {
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.image-container img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.about {
+    background-color: #e1bee7;
+    padding: 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #f1f1f1;
+}
+
+
+
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-color: #f0f0f0;
+    transition: background-color 0.5s ease-in-out;
+}
+
+/* Menu */
+.menu {
+    position: relative;
+}
+
+.menu-icon {
+    font-size: 30px;
+    cursor: pointer;
+    margin: 10px;
+    transition: transform 0.5s ease;
+}
+
+.menu-icon:hover {
+    transform: rotate(90deg); /* Menu icon rotates when hovered */
+}
+
+.menu-content {
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 10px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.menu-content a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    transition: background-color 0.3s;
+}
+
+.menu-content a:hover {
+    background-color: #ff4081; /* Links change color when hovered */
+    color: white;
+}
+
+/* Keyframe animation for fade-in effect */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Background animation */
+.background {
+    background: url('your_background_image.jpg') no-repeat center center fixed;
+    background-size: cover;
+    opacity: 0.8;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    animation: slideUp 1s ease-out;
+}
+
+/* Button animation */
+.button {
+    padding: 15px 25px;
+    background-color: #ff4081;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s ease-in-out;
+}
+
+.button:hover {
+    background-color: #e91e63;
+    transform: scale(1.1); /* Button grows slightly when hovered */
+}
+
+/* Slide-up animation for background elements */
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Portfolio grid */
+.portfolio {
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.image-container img {
+    width: 100%;
+    border-radius: 5px;
+    transition: transform 0.3s ease, box-shadow 0.3s;
+}
+
+.image-container img:hover {
+    transform: scale(1.1); /* Images scale up on hover */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Box shadow effect */
+}
+
+/* About section */
+.about {
+    background-color: #e1bee7;
+    padding: 20px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #f1f1f1;
+    transition: background-color 0.5s;
+}
+
+footer:hover {
+    background-color: #ff4081; /* Footer changes color when hovered */
+    color: white;
+}
+
+
+
+
+/* Global settings */
+html, body {
+    height: 100%;  /* Ensure the html and body are full height */
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Ensure each page container takes full height */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;  /* Ensure body fills the viewport */
+}
+
+/* Home Page */
+.background {
+    background: linear-gradient(to right, #ff4081, #ff9800);  /* Home gradient */
+    min-height: 100vh;  /* Full viewport height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+/* Portfolio Page - New vibrant gradient */
+.portfolio {
+    background: linear-gradient(to right, #00c6ff, #0072ff);  /* Sky blue to deep blue */
+    min-height: 100vh;  /* Full viewport height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+/* Work Page - New vibrant gradient */
+.work {
+    background: linear-gradient(to right, #f7971e, #ffd200);  /* Orange to bright yellow */
+    min-height: 100vh;  /* Full viewport height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+/* About Page - New vibrant gradient */
+.about {
+    background: linear-gradient(to right, #ff512f, #dd2476);  /* Warm red to pink */
+    min-height: 100vh;  /* Full viewport height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #f1f1f1;
+    transition: background-color 0.5s;
+}
+
+footer:hover {
+    background-color: #ff4081;
+    color: white;
+}
+
+/* Keyframe animations */
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* General animation for the sections */
+.background, .portfolio, .work, .about {
+    animation: slideUp 1s ease-out;
+}
+
+
+
+
+
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0; /* Set your desired background color */
+}
+
+.icon-container {
+    position: sticky; /* Makes the icons stick to the top */
+    top: 0; /* Position it at the top of the viewport */
+    display: flex;
+    justify-content: space-around; /* Adjusts spacing between icons */
+    background-color: rgba(255, 255, 255, 0.9); /* Light background for the icons */
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: adds shadow for depth */
+    z-index: 1000; /* Keeps the icons above other content */
+}
+
+.icon-container a {
+    text-decoration: none; /* Removes underline from links */
+    color: inherit; /* Inherits color from parent */
+    font-size: 30px; /* Adjust icon size */
+    transition: color 0.3s; /* Smooth color transition on hover */
+}
+
+.icon-container a:hover {
+    color: #007bff; /* Change color on hover */
+}
